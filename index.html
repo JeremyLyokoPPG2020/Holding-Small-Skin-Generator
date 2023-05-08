@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Small Skin Holding Generator</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<p>Input Skin:</p>
+<input type='file' onchange="load_file_skin(this);" />
+<p></p>
+<img id="image_input" alt="Input Skin" style="image-rendering:pixelated;" width="64" height="64"/>
+<p>Output Skin:</p>
+<!-- partial:index.partial.html -->
+<canvas id="canvas_output" style="image-rendering: pixelated;" width="64" height="64"></canvas>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+<p>Block type:</p>
+<select id="HeadType" onchange="IfOutra()">
+    <option value="MoulaTime">Grass block</option><!-- Bloco de grama -->
+    <option value="MHF_Chest">Chest</option><!-- Baú -->
+    <option value="MHF_Melon">Watermelon</option><!-- Melacina -->
+    <option value="MHF_Cactus">Cactus</option><!-- Cactus -->
+    <option value="MHF_OakLog">Wooden Block</option><!-- Bloco de madeira -->
+    <option value="MHF_Pumpkin">Pumpkin</option><!-- Abóbora -->
+    <option value="MHF_TNT2">Dynamite</option><!-- Dinamite -->
+    <option value="MHF_Cake">Cake</option><!-- Bolo -->
+	<option value="MHF_Bookshelf">Bookshelf</option>
+    <option value="C418">Jukebox</option><!-- Jukebox -->
+    <option value="OUTRA">Other...</option><!-- Outra... -->
+</select>
+
+<div class="slidecontainer"> 
+<p>Body Size:</p>
+  <input type="range" min="4" max="12" value="9" class="slider" id="body_size"><span id="body_value">
+</div>
+<div class="slidecontainer">
+<p>Head/Body Position:</p>
+  <input type="range" min="4" max="8" value="8" class="slider" id="head_position"> <span id="head_value"></span>
+</div>
+
+<button onclick="change()">GENERATE SKIN</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+var slider1 = document.getElementById("body_size");
+var slider2 = document.getElementById("head_position");
+var output1 = document.getElementById("body_value");
+var output2 = document.getElementById("head_value");
+output1.innerHTML = slider1.value;
+output2.innerHTML = slider2.value;
+
+slider1.oninput = function() {
+  output1.innerHTML = this.value;
+}
+slider2.oninput = function() {
+  output2.innerHTML = this.value;
+}
+
+function load_file_skin(input) {
+            if (input.files && input.files[0]) {
+                var reader_skin = new FileReader();
+
+                reader_skin.onload = function (e) {
+                    $('#image_input')
+                        .attr('src', e.target.result);
+                };
+
+                reader_skin.readAsDataURL(input.files[0]);
+            }
+        }
+
+</script>
+
+</body>
+</html>
